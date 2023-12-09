@@ -1,0 +1,17 @@
+SRC_DIR = src
+
+SRCS := $(wildcard $(SRC_DIR)/.java)
+
+.PHONY: compile clean run
+
+compile: $(SRCS)
+javac $(SRCS)
+
+$(CLS): $(SRC_DIR)/%.class: $(SRC_DIR)/%.java
+    javac -d $(SRC_DIR)/ $<
+
+run: compile
+	java -classpath $(SRC_DIR) Main
+
+clean:
+$(RM) $(SRC_DIR)/.class
